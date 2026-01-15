@@ -163,9 +163,10 @@ export async function parseToDocxOptions (
       );
       headings.forEach((heading) => {
         // Determine font size based on heading level
-        let fontSize;
+        let fontSize: number | undefined;
         let isBold = false;
         let isItalic = false;
+        let font: string | undefined;
 
         // Apply level-specific styles if provided
         switch (heading.level) {
@@ -176,6 +177,7 @@ export async function parseToDocxOptions (
                 ? style.tocHeading1Bold
                 : true;
             isItalic = style.tocHeading1Italic || false;
+            font = style.tocHeading1Font || style.tocFont || undefined;
             break;
           case 2:
             fontSize = style.tocHeading2FontSize || style.tocFontSize;
@@ -184,21 +186,25 @@ export async function parseToDocxOptions (
                 ? style.tocHeading2Bold
                 : false;
             isItalic = style.tocHeading2Italic || false;
+            font = style.tocHeading2Font || style.tocFont || undefined;
             break;
           case 3:
             fontSize = style.tocHeading3FontSize || style.tocFontSize;
             isBold = style.tocHeading3Bold || false;
             isItalic = style.tocHeading3Italic || false;
+            font = style.tocHeading3Font || style.tocFont || undefined;
             break;
           case 4:
             fontSize = style.tocHeading4FontSize || style.tocFontSize;
             isBold = style.tocHeading4Bold || false;
             isItalic = style.tocHeading4Italic || false;
+            font = style.tocHeading4Font || style.tocFont || undefined;
             break;
           case 5:
             fontSize = style.tocHeading5FontSize || style.tocFontSize;
             isBold = style.tocHeading5Bold || false;
             isItalic = style.tocHeading5Italic || false;
+            font = style.tocHeading5Font || style.tocFont || undefined;
             break;
           default:
             fontSize = style.tocFontSize;
@@ -221,6 +227,7 @@ export async function parseToDocxOptions (
                     text: heading.text,
                     size: fontSize,
                     bold: isBold,
+                    font,
                     italics: isItalic,
                   }),
                 ],
