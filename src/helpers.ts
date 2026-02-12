@@ -55,7 +55,8 @@ export function processHeading(
 	// Get the appropriate font size based on heading level and custom style
 	let headingSize = style.titleSize;
 	const fontKey = `heading${headingLevel}Font` as keyof Style;
-	const headingFont = style[fontKey] as string || style.headingFont || style.defaultFont;
+	const headingFont =
+		(style[fontKey] as string) || style.headingFont || style.defaultFont;
 
 	// Use specific heading size if provided, otherwise calculate based on level
 	if (headingLevel === 1 && style.heading1Size) {
@@ -175,7 +176,7 @@ function processFormattedTextForHeading(
 						color: "000000",
 						size: fontSize,
 						rightToLeft: style?.direction === "RTL",
-            ...(headingFont ? { font: headingFont } : {}),
+						...(headingFont ? { font: headingFont } : {}),
 					}),
 				);
 				currentText = "";
@@ -333,6 +334,7 @@ function processFormattedTextForHeading(
 export function processTable(
 	tableData: TableData,
 	documentType: "document" | "report",
+	style: Style,
 ): Table {
 	return new Table({
 		width: { size: 100, type: WidthType.PERCENTAGE },
@@ -348,6 +350,8 @@ export function processTable(
 									style: "Strong",
 									children: [
 										new TextRun({
+											font: style.tableHeaderFont || style.defaultFont,
+											size: style.tableHeaderSize || style.paragraphSize,
 											text: header,
 											bold: true,
 											color: "000000",
@@ -371,6 +375,8 @@ export function processTable(
 										new Paragraph({
 											children: [
 												new TextRun({
+													font: style.tableItemFont || style.defaultFont,
+													size: style.tableItemSize || style.paragraphSize,
 													text: cell,
 													color: "000000",
 													rightToLeft: false,

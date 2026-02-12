@@ -14,6 +14,8 @@ export interface Style {
 	heading5Size?: number;
 	paragraphSize?: number;
 	listItemSize?: number;
+	tableHeaderSize?: number;
+	tableItemSize?: number;
 	codeBlockSize?: number;
 	blockquoteSize?: number;
 	tocFontSize?: number;
@@ -28,6 +30,8 @@ export interface Style {
 	listItemFont?: string;
 	blockquoteFont?: string;
 	tocFont?: string;
+	tableHeaderFont?: string;
+	tableItemFont?: string;
 	// TOC level-specific styling
 	tocHeading1Font?: string;
 	tocHeading2Font?: string;
